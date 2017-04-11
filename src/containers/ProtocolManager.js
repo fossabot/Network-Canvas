@@ -35,7 +35,7 @@ class ProtocolManager extends Component {
 
   componentDidMount() {
     loadProtocol({
-      src: '/protocols/hello.js'
+      src: 'http://networkcanvas.com/hello.js'
     })
       .then((protocol) => {
         this.setState({

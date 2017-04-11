@@ -18,7 +18,7 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "org.codaco.networkCanvas"
         },
-        "cordova-plugin-wkwebview-engine": {
+        "it.innowatio.cordova.ios-fullscreen": {
             "PACKAGE_NAME": "org.codaco.networkCanvas"
         }
     },

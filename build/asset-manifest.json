@@ -1,4 +1,22 @@
 {
-  "main.js": "static/js/main.c281be46.js",
-  "main.js.map": "static/js/main.c281be46.js.map"
+  "main.css": "static/css/main.c0ff7e98.css",
+  "main.css.map": "static/css/main.c0ff7e98.css.map",
+  "main.js": "static/js/main.a91a3e3b.js",
+  "main.js.map": "static/js/main.a91a3e3b.js.map",
+  "static/media/quicksand-latin-300.eot": "static/media/quicksand-latin-300.5db68351.eot",
+  "static/media/quicksand-latin-300.svg": "static/media/quicksand-latin-300.4e010b92.svg",
+  "static/media/quicksand-latin-300.woff": "static/media/quicksand-latin-300.4c60f637.woff",
+  "static/media/quicksand-latin-300.woff2": "static/media/quicksand-latin-300.e18911a2.woff2",
+  "static/media/quicksand-latin-400.eot": "static/media/quicksand-latin-400.44c6e3ed.eot",
+  "static/media/quicksand-latin-400.svg": "static/media/quicksand-latin-400.44e670ef.svg",
+  "static/media/quicksand-latin-400.woff": "static/media/quicksand-latin-400.30e39dfd.woff",
+  "static/media/quicksand-latin-400.woff2": "static/media/quicksand-latin-400.12df3041.woff2",
+  "static/media/quicksand-latin-500.eot": "static/media/quicksand-latin-500.d98ed59b.eot",
+  "static/media/quicksand-latin-500.svg": "static/media/quicksand-latin-500.f2610f3d.svg",
+  "static/media/quicksand-latin-500.woff": "static/media/quicksand-latin-500.74fc3036.woff",
+  "static/media/quicksand-latin-500.woff2": "static/media/quicksand-latin-500.cf60f1b7.woff2",
+  "static/media/quicksand-latin-700.eot": "static/media/quicksand-latin-700.b7ed3ec4.eot",
+  "static/media/quicksand-latin-700.svg": "static/media/quicksand-latin-700.f181240e.svg",
+  "static/media/quicksand-latin-700.woff": "static/media/quicksand-latin-700.27aef454.woff",
+  "static/media/quicksand-latin-700.woff2": "static/media/quicksand-latin-700.46e07327.woff2"
 }

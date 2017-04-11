@@ -15,10 +15,11 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-wkwebview-engine": {
+    "it.innowatio.cordova.ios-fullscreen": {
         "source": {
-            "type": "registry",
-            "id": "cordova-plugin-wkwebview-engine"
+            "type": "git",
+            "url": "https://github.com/innowatio/cordova-ios-fullscreen.git",
+            "subdir": "."
         },
         "is_top_level": true,
         "variables": {}
