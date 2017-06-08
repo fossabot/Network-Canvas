@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { CSSTransitionGroup } from 'react-transition-group';
 import loadInterface from '../utils/loadInterface';
 import { actionCreators as stageActions } from '../ducks/modules/stage';
 import { stage } from '../selectors/session';
@@ -22,7 +23,8 @@ class Stage extends Component {
   }
 
   render() {
-    const CurrentInterface = loadInterface(this.props.currentStage.type);
+    const { currentStage } = this.props;
+    const CurrentInterface = loadInterface(currentStage.type);
 
     return (
       <div className="stage">
@@ -35,7 +37,19 @@ class Stage extends Component {
           </button>
         </div>
         <div className="stage__interface">
-          { CurrentInterface && <CurrentInterface config={this.props.currentStage} /> }
+          <CSSTransitionGroup
+            transitionName="stage"
+            transitionEnterTimeout={600}
+            transitionLeaveTimeout={300}
+            transitionAppear
+            transitionAppearTimeout={300}
+          >
+            { CurrentInterface &&
+              <div className="interface" key={currentStage.id} >
+                <CurrentInterface config={currentStage} />
+              </div>
+            }
+          </CSSTransitionGroup>
         </div>
         <div className="stage__control">
           <button

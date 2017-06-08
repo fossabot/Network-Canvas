@@ -2,9 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 
   &__interface {
     flex: 1 auto;
+    position: relative;
+    height: 100vh;
   }
 
   &__control {

@@ -1,14 +1,17 @@
 @import '~network-canvas-ui/src/styles/all.scss';
-@import "components/_all.scss";
+@import 'ui/all';
+@import 'utils/draggable-preview';
+@import 'components/all';
 
 #root {
-    @import "containers/home";
+  @import 'containers/home';
 }
 
-html, body {
-  margin:0;
-  padding:0;
-  height:100%;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 .app {

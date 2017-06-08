@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { DraggableCore } from 'react-draggable';
+import { CSSTransitionGroup } from 'react-transition-group';
 import { filter } from 'lodash';
 import DraggablePreview from '../utils/DraggablePreview';
 import { actionCreators as draggableActions } from '../ducks/modules/draggable';
@@ -24,6 +25,14 @@ function getCoords(event) {
 
 function moveDistance(start, draggableData) {
   return Math.sqrt((draggableData.x - start.x) ** 2, (draggableData.y - start.y) ** 2);
+}
+
+function* uid() {
+  let i = 1;
+  for (;;) {
+    yield i;
+    i += 1;
+  }
 }
 
 export default function draggable(WrappedComponent) {
@@ -111,14 +120,24 @@ export default function draggable(WrappedComponent) {
       this.props.dragStop();
     }
 
-    render() {
-      const opacity = this.state.preview !== null ? { opacity: 0 } : { opacity: 1, transition: 'opacity 300ms ease' };
+    isActive() {
+      return this.state.preview !== null;
+    }
 
+    render() {
       return (
         <DraggableCore onStart={this.onStart} onStop={this.onStop} onDrag={this.onDrag}>
-          <div style={opacity} ref={(node) => { this.node = node; }}>
-            <WrappedComponent {...this.props} />
-          </div>
+          <CSSTransitionGroup
+            transitionName="zoom"
+            transitionEnterTimeout={200}
+            transitionLeaveTimeout={200}
+          >
+            { !this.isActive() &&
+              <div ref={(node) => { this.node = node; }} key={uid()}>
+                <WrappedComponent {...this.props} />
+              </div>
+            }
+          </CSSTransitionGroup>
         </DraggableCore>
       );
     }
