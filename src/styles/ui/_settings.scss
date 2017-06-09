@@ -1,8 +1,0 @@
-$animation-duration: (
-  component: 200ms,
-  stage: 300ms
-);
-
-@function animation-duration($element) {
-  @return map-get($animation-duration, $element);
-}

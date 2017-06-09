@@ -6,6 +6,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import loadInterface from '../utils/loadInterface';
 import { actionCreators as stageActions } from '../ducks/modules/stage';
 import { stage } from '../selectors/session';
+import styles from '../ui/styles';
 
 /**
   * Render a protocol interface based on protocol info and id
@@ -39,10 +40,10 @@ class Stage extends Component {
         <div className="stage__interface">
           <CSSTransitionGroup
             transitionName="stage"
-            transitionEnterTimeout={600}
-            transitionLeaveTimeout={300}
+            transitionEnterTimeout={styles.animation.duration.slow * 2}
+            transitionLeaveTimeout={styles.animation.duration.slow}
             transitionAppear
-            transitionAppearTimeout={300}
+            transitionAppearTimeout={styles.animation.duration.slow}
           >
             { CurrentInterface &&
               <div className="interface" key={currentStage.id} >

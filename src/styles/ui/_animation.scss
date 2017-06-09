@@ -1,0 +1,109 @@
+// sass-lint:disable no-transition-all
+
+@keyframes zoom {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+@mixin animation($keyframes) {
+  animation-name: $keyframes;
+  animation-delay: 0ms;
+  animation-duration: $animation-fast-duration;
+  animation-timing-function:  $animation-default-easing;
+  animation-iteration-count: 1;
+}
+
+$transition-presets: (
+  zoom: (
+    start: (transform: scale(0, 0), opacity: 0),
+    end: (transform: scale(1, 1), opacity: 1)
+  ),
+  fade: (
+    start: (opacity: 0),
+    end: (opacity: 1)
+  )
+);
+
+@mixin transition($transition-name, $duration) {
+  $transition: map-get($transition-presets, $transition-name);
+
+  &-appear,
+  &-enter {
+    @each $key, $value in map-get($transition, 'start') {
+      #{$key}: $value;
+    }
+
+    &-active {
+      transition: all $duration $animation-default-easing;
+
+      @each $key, $value in map-get($transition, 'end') {
+        #{$key}: $value;
+      }
+    }
+  }
+
+  &-leave {
+    @each $key, $value in map-get($transition, 'end') {
+      #{$key}: $value;
+    }
+
+    &-active {
+      transition: all $duration $animation-default-easing;
+      @each $key, $value in map-get($transition, 'start') {
+        #{$key}: $value;
+      }
+    }
+  }
+}
+
+@mixin transition-switch($transition-name, $duration) {
+  $transition: map-get($transition-presets, $transition-name);
+
+  &-appear {
+    @each $key, $value in map-get($transition, 'start') {
+      #{$key}: $value;
+    }
+
+    &-active {
+      transition: all $duration $animation-default-easing;
+
+      @each $key, $value in map-get($transition, 'end') {
+        #{$key}: $value;
+      }
+    }
+  }
+
+  &-enter {
+    @each $key, $value in map-get($transition, 'start') {
+      #{$key}: $value;
+    }
+
+    &-active {
+      transition: all $duration $animation-default-easing $duration;
+
+      @each $key, $value in map-get($transition, 'end') {
+        #{$key}: $value;
+      }
+    }
+  }
+
+  &-leave {
+    @each $key, $value in map-get($transition, 'end') {
+      #{$key}: $value;
+    }
+
+    &-active {
+      transition: all $duration $animation-default-easing;
+      @each $key, $value in map-get($transition, 'start') {
+        #{$key}: $value;
+      }
+    }
+  }
+}

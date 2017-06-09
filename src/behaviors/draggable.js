@@ -7,6 +7,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import { filter } from 'lodash';
 import DraggablePreview from '../utils/DraggablePreview';
 import { actionCreators as draggableActions } from '../ducks/modules/draggable';
+import styles from '../ui/styles';
 
 function getCoords(event) {
   if (typeof TouchEvent !== 'undefined' && event instanceof TouchEvent) {
@@ -128,9 +129,11 @@ export default function draggable(WrappedComponent) {
       return (
         <DraggableCore onStart={this.onStart} onStop={this.onStop} onDrag={this.onDrag}>
           <CSSTransitionGroup
-            transitionName="zoom"
-            transitionEnterTimeout={200}
-            transitionLeaveTimeout={200}
+            transitionName="draggable"
+            transitionAppear
+            transitionAppearTimeout={styles.animation.duration.fast * 2}
+            transitionEnterTimeout={styles.animation.duration.fast}
+            transitionLeaveTimeout={styles.animation.duration.fast}
           >
             { !this.isActive() &&
               <div ref={(node) => { this.node = node; }} key={uid()}>
