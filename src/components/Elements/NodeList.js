@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransitionGroup } from 'react-transition-group';
 import { Node } from '../Elements';
 import { scrollable, droppable, draggable, selectable } from '../../behaviors';
+import styles from '../../ui/styles';
 
 const EnhancedNode = draggable(selectable(Node));
 
@@ -20,19 +22,27 @@ const NodeList = (props) => {
 
   return (
     <div className="node-list">
-      {
-        network.nodes.map(node => (
-          <EnhancedNode
-            key={node.uid}
-            label={label(node)}
-            isActive={isActive(node)}
-            onSelected={() => handleSelectNode(node)}
-            onDropped={hits => handleDropNode(hits, node)}
-            draggableType={draggableType}
-            {...node}
-          />
-        ))
-      }
+      <CSSTransitionGroup
+        transitionName="node-list"
+        transitionAppearTimeout={styles.animation.duration.fast}
+        transitionAppear
+        transitionLeave={false}
+        transitionEnter={false}
+      >
+        {
+          network.nodes.map(node => (
+            <EnhancedNode
+              key={node.uid}
+              label={label(node)}
+              isActive={isActive(node)}
+              onSelected={() => handleSelectNode(node)}
+              onDropped={hits => handleDropNode(hits, node)}
+              draggableType={draggableType}
+              {...node}
+            />
+          ))
+        }
+      </CSSTransitionGroup>
     </div>
   );
 };

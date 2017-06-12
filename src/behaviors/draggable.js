@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -130,15 +131,14 @@ export default function draggable(WrappedComponent) {
         <DraggableCore onStart={this.onStart} onStop={this.onStop} onDrag={this.onDrag}>
           <CSSTransitionGroup
             transitionName="draggable"
-            transitionAppear
-            transitionAppearTimeout={styles.animation.duration.fast * 2}
+            transitionAppear={false}
             transitionEnterTimeout={styles.animation.duration.fast}
             transitionLeaveTimeout={styles.animation.duration.fast}
           >
             { !this.isActive() &&
-              <div ref={(node) => { this.node = node; }} key={uid()}>
-                <WrappedComponent {...this.props} />
-              </div>
+              <span ref={(node) => { this.node = node; }} key={uid()}>
+                <WrappedComponent {...this.props}/>
+              </span>
             }
           </CSSTransitionGroup>
         </DraggableCore>

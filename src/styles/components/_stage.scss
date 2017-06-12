@@ -5,6 +5,12 @@
   align-items: center;
   height: 100vh;
 
+  &-leave {
+    .node-list {
+      opacity: 0;
+    }
+  }
+
   &__interface {
     flex: 1 auto;
     position: relative;
