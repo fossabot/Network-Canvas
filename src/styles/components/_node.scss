@@ -1,5 +1,5 @@
 .node {
-  background: node-palette('default');
+  background: palette('node-base');
   margin: 1rem;
   width: 175px;
   height: 175px;
@@ -24,7 +24,7 @@
     height: 50%;
     transform: rotate(-45deg);
     transform-origin: 0 0;
-    background-color: node-palette('default', 'dark');
+    background-color: palette('node-dark');
   }
 
   &__label {

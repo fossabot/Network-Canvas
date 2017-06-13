@@ -28,39 +28,37 @@ class Stage extends Component {
     const CurrentInterface = loadInterface(currentStage.type);
 
     return (
-      <div className="stage">
-        <div className="stage__control">
-          <button
-            className="stage__control-button stage__control-button--back"
-            onClick={this.onClickBack}
-          >
-            Back
-          </button>
-        </div>
-        <div className="stage__interface">
-          <CSSTransitionGroup
-            transitionName="stage"
-            transitionEnterTimeout={styles.animation.duration.slow * 2}
-            transitionLeaveTimeout={styles.animation.duration.slow}
-            transitionAppear
-            transitionAppearTimeout={styles.animation.duration.slow}
-          >
+      <CSSTransitionGroup
+        transitionName="stage-transition"
+        transitionEnterTimeout={styles.animation.duration.slow * 2}
+        transitionLeaveTimeout={styles.animation.duration.slow}
+        transitionAppear
+        transitionAppearTimeout={styles.animation.duration.slow}
+      >
+        <div className="stage" key={currentStage.id}>
+          <div className="stage__control">
+            <button
+              className="stage__control-button stage__control-button--back"
+              onClick={this.onClickBack}
+            >
+              Back
+            </button>
+          </div>
+          <div className="stage__interface">
             { CurrentInterface &&
-              <div className="interface" key={currentStage.id} >
-                <CurrentInterface config={currentStage} />
-              </div>
+              <CurrentInterface config={currentStage} />
             }
-          </CSSTransitionGroup>
+          </div>
+          <div className="stage__control">
+            <button
+              className="stage__control-button stage__control-button--next"
+              onClick={this.onClickNext}
+            >
+              Next
+            </button>
+          </div>
         </div>
-        <div className="stage__control">
-          <button
-            className="stage__control-button stage__control-button--next"
-            onClick={this.onClickNext}
-          >
-            Next
-          </button>
-        </div>
-      </div>
+      </CSSTransitionGroup>
     );
   }
 }
