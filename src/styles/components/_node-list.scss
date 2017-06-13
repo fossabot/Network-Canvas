@@ -1,10 +1,12 @@
 .node-list {
-  @include transition(zoom, $animation-fast-duration);
-
   margin-top: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   min-height: 100px;
+}
+
+.nodelist {
+  @include transition(zoom, $animation-fast-duration);
 }
