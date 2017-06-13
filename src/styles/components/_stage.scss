@@ -1,5 +1,5 @@
 .stage {
-  @include transition-switch(fade, $animation-slow-duration)
+  @include transition-delay(fade, $animation-slow-duration, $animation-slow-duration)
   display: flex;
   justify-content: center;
   align-items: center;
