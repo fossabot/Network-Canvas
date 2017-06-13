@@ -9,7 +9,6 @@ const fields = [
     validation: {
       required: true,
       minLength: 2,
-      minLength: 8,
     }
   },
   {

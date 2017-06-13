@@ -131,7 +131,8 @@ export default function draggable(WrappedComponent) {
         <DraggableCore onStart={this.onStart} onStop={this.onStop} onDrag={this.onDrag}>
           <CSSTransitionGroup
             transitionName="draggable"
-            transitionAppear={false}
+            transitionAppear
+            transitionAppearTimeout={styles.animation.duration.fast}
             transitionEnterTimeout={styles.animation.duration.fast}
             transitionLeaveTimeout={styles.animation.duration.fast}
           >
