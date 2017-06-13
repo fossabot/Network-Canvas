@@ -81,7 +81,7 @@ $transition-presets: (
   }
 }
 
-@mixin transition-delay($transition-name, $duration, $delay) {
+@mixin transition-with-delay($transition-name, $duration, $delay) {
   $transition: map-get($transition-presets, $transition-name);
 
   &-appear {

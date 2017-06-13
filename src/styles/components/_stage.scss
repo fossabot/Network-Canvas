@@ -31,14 +31,10 @@
     }
   }
 
-  &-transition {
-    @include transition-delay(fade, $animation-slow-duration, $animation-slow-duration)
+  &--transition {
+    @include transition-with-delay(fade, $animation-slow-duration, $animation-slow-duration)
 
-    // &-enter,
-    // &-appear,
-    // &-leave {
-
-    &-leave {
+    @include transition-on-leave {
       .node-list {
         opacity: 0;
       }

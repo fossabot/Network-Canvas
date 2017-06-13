@@ -29,7 +29,7 @@ class Stage extends Component {
 
     return (
       <CSSTransitionGroup
-        transitionName="stage-transition"
+        transitionName="stage--transition"
         transitionEnterTimeout={styles.animation.duration.slow * 2}
         transitionLeaveTimeout={styles.animation.duration.slow}
         transitionAppear
