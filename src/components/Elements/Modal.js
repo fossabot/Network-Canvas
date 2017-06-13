@@ -18,7 +18,7 @@ const Modal = (props) => {
 
   return (
     <CSSTransitionGroup
-     transitionName="modal"
+     transitionName="modal--transition"
      transitionEnterTimeout={styles.animation.duration.standard}
      transitionLeaveTimeout={styles.animation.duration.standard}
     >

@@ -31,6 +31,24 @@ $transition-presets: (
   )
 );
 
+@mixin transition-on-enter {
+  &-enter {
+    @content;
+  }
+}
+
+@mixin transition-on-appear {
+  &-appear {
+    @content;
+  }
+}
+
+@mixin transition-on-leave {
+  &-leave {
+    @content;
+  }
+}
+
 @mixin transition($transition-name, $duration) {
   $transition: map-get($transition-presets, $transition-name);
 
