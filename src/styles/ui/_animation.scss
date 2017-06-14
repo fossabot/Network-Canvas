@@ -28,6 +28,10 @@ $transition-presets: (
   fade: (
     start: (opacity: 0),
     end: (opacity: 1)
+  ),
+  flex: (
+    start: (flex-grow: 0),
+    end: (flex-grow: 1)
   )
 );
 

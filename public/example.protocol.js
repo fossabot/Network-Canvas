@@ -147,7 +147,6 @@ return {
           },
           "panels": [
             'existing',
-            'previous',
           ],
         },
       },

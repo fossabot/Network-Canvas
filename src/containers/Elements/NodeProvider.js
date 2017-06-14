@@ -6,7 +6,6 @@ import { isMatch, omit } from 'lodash';
 
 import { actionCreators as networkActions } from '../../ducks/modules/network';
 import { newNodeAttributes, activePromptAttributes } from '../../selectors/session';
-import { filteredDataSource } from '../../selectors/dataSource';
 
 import { NodeList } from '../../components/Elements';
 
@@ -87,7 +86,6 @@ function mapStateToProps(state, ownProps) {
   const interaction = (ownProps.selectable && 'selectable') || (ownProps.draggable && 'draggable') || 'none';
 
   return {
-    network: filteredDataSource(state, ownProps),
     interaction,
     newNodeAttributes: newNodeAttributes(state),
     activePromptAttributes: activePromptAttributes(state),
