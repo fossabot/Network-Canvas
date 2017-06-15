@@ -35,8 +35,10 @@
     @include group-transition-with-delay(fade, $animation-slow-duration, $animation-slow-duration)
 
     @include group-transition-leave {
-      .node-list {
+      .node-list,
+      .panels {
         opacity: 0;
+        transition: unset !important;
       }
     }
   }

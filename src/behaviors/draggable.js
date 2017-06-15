@@ -130,16 +130,16 @@ export default function draggable(WrappedComponent) {
       return (
         <DraggableCore onStart={this.onStart} onStop={this.onStop} onDrag={this.onDrag}>
           <CSSTransitionGroup
-            transitionName="draggable"
+            transitionName="draggable--transition"
             transitionAppear
             transitionAppearTimeout={styles.animation.duration.fast}
             transitionEnterTimeout={styles.animation.duration.fast}
             transitionLeaveTimeout={styles.animation.duration.fast}
           >
             { !this.isActive() &&
-              <span ref={(node) => { this.node = node; }} key={uid()}>
+              <div ref={(node) => { this.node = node; }} key={uid()}>
                 <WrappedComponent {...this.props}/>
-              </span>
+              </div>
             }
           </CSSTransitionGroup>
         </DraggableCore>

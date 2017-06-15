@@ -35,10 +35,10 @@ $transition-presets: (
   )
 );
 
-@mixin transition-properties($properties, $easing, $duration) {
+@mixin transition-properties($properties, $easing, $duration, $delay: 0s) {
   $transitions: ();
   @each $value in $properties {
-    $transitions: append($transitions, $value $easing $duration, comma);
+    $transitions: append($transitions, $value $duration $easing $delay, comma);
   }
   transition: $transitions;
 }
@@ -63,6 +63,7 @@ $transition-presets: (
 
 @mixin group-transition($transition-name, $duration) {
   $transition: map-get($transition-presets, $transition-name);
+  $properties: map-keys(map-get($transition, 'start'));
 
   &-appear,
   &-enter {
@@ -71,7 +72,7 @@ $transition-presets: (
     }
 
     &-active {
-      @include transition-properties(keys($transition), $animation-default-easing, $duration)
+      @include transition-properties($properties, $animation-default-easing, $duration);
 
       @each $key, $value in map-get($transition, 'end') {
         #{$key}: $value;
@@ -85,7 +86,7 @@ $transition-presets: (
     }
 
     &-active {
-      @include transition-properties(keys($transition), $animation-default-easing, $duration)
+      @include transition-properties($properties, $animation-default-easing, $duration);
       @each $key, $value in map-get($transition, 'start') {
         #{$key}: $value;
       }
@@ -95,6 +96,7 @@ $transition-presets: (
 
 @mixin group-transition-with-delay($transition-name, $duration, $delay) {
   $transition: map-get($transition-presets, $transition-name);
+  $properties: map-keys(map-get($transition, 'start'));
 
   &-appear {
     @each $key, $value in map-get($transition, 'start') {
@@ -102,7 +104,7 @@ $transition-presets: (
     }
 
     &-active {
-      @include transition-properties(keys($transition), $animation-default-easing, $duration)
+      @include transition-properties($properties, $animation-default-easing, $duration, $delay);
 
       @each $key, $value in map-get($transition, 'end') {
         #{$key}: $value;
@@ -116,7 +118,7 @@ $transition-presets: (
     }
 
     &-active {
-      transition: all $duration $animation-default-easing $delay;
+      @include transition-properties($properties, $animation-default-easing, $duration, $delay);
 
       @each $key, $value in map-get($transition, 'end') {
         #{$key}: $value;
@@ -130,7 +132,7 @@ $transition-presets: (
     }
 
     &-active {
-      transition: all $duration $animation-default-easing;
+      @include transition-properties($properties, $animation-default-easing, $duration);
       @each $key, $value in map-get($transition, 'start') {
         #{$key}: $value;
       }
