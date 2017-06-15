@@ -32,9 +32,9 @@
   }
 
   &--transition {
-    @include transition-with-delay(fade, $animation-slow-duration, $animation-slow-duration)
+    @include group-transition-with-delay(fade, $animation-slow-duration, $animation-slow-duration)
 
-    @include transition-on-leave {
+    @include group-transition-leave {
       .node-list {
         opacity: 0;
       }

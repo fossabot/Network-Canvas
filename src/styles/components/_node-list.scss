@@ -6,7 +6,3 @@
   align-items: flex-start;
   min-height: 100px;
 }
-
-.nodelist {
-  @include transition(zoom, $animation-fast-duration);
-}

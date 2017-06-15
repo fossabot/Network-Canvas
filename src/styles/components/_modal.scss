@@ -62,9 +62,9 @@ $component-name: modal;
   }
 
   &--transition {
-    @include transition(fade, $animation-standard-duration);
+    @include group-transition(fade, $animation-standard-duration);
 
-    @include transition-on-enter {
+    @include group-transition-enter {
       .#{$component-name}__window {
         transform: translate(0, -100vh);
       }
@@ -77,7 +77,7 @@ $component-name: modal;
       }
     }
 
-    @include transition-on-leave {
+    @include group-transition-leave {
       .#{$component-name}__window {
         transform: translate(0, 0);
       }
