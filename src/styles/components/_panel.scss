@@ -1,4 +1,5 @@
 .panel {
+  @include transition-properties((opacity flex-grow margin-bottom border-bottom-width), $animation-default-easing, $animation-standard-duration)
   flex: 1 0 0;
   display: flex;
   flex-direction: column;
@@ -7,11 +8,12 @@
   border-style: solid;
   border-width: 0;
   border-bottom-width: 10px;
-  margin: 30px 0 0;
+  margin: 0 0 30px;
   overflow: hidden;
+  opacity: 1;
 
-  &:first-child {
-    margin-top: 0;
+  &:last-child {
+    margin-bottom: 0;
   }
 
   &__heading {
@@ -27,6 +29,7 @@
   &__content {
     flex: 1 auto;
     position: relative;
+    overflow: hidden;
   }
 
   .node {
@@ -35,23 +38,10 @@
     font-size: .5em;
   }
 
-  &--transition {
-    @include transition(flex, $animation-standard-duration);
-
-    @include transition-on-enter {
-      border-bottom-width: 0;
-
-      &-active {
-        border-bottom-width: 10px;
-      }
-    }
-
-    @include transition-on-leave {
-      border-bottom-width: 10px;
-
-      &-active {
-        border-bottom-width: 0;
-      }
-    }
+  &--minimise {
+    border-bottom-width: 0;
+    flex-grow: 0;
+    margin-bottom: 0;
+    opacity: 0;
   }
 }

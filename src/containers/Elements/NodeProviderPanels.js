@@ -3,11 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { zipWith } from 'lodash';
-import { CSSTransitionGroup } from 'react-transition-group';
 import { Panels, Panel } from '../../components/Elements';
 import { NodeProvider } from '../Elements';
 import { filteredDataSource } from '../../selectors/dataSource';
-import styles from '../../ui/styles';
 
 const providerPresets = {
   existing: {
@@ -60,20 +58,12 @@ const NodeProviderPanels = ({ providers }) => {
   );
 
   return (
-    <Panels show>
-      <CSSTransitionGroup
-        className="panels__panels"
-        transitionName="panel--transition"
-        transitionEnterTimeout={styles.animation.duration.standard}
-        transitionLeaveTimeout={styles.animation.duration.standard}
-      >
-        { providers.map(provider => (
-            (provider.network.nodes.length !== 0) &&
-            <Panel title={provider.title} key={provider.type}>
-              <NodeProvider {...provider} />
-            </Panel>
-        )) }
-      </CSSTransitionGroup>
+    <Panels minimise={totalNodes === 0}>
+      { providers.map(provider => (
+        <Panel title={provider.title} key={provider.type} minimise={provider.network.nodes.length === 0}>
+          <NodeProvider {...provider} />
+        </Panel>
+      )) }
     </Panels>
   );
 };

@@ -1,15 +1,16 @@
 .panels {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  flex: 0 0 400px;
+  margin-right: 50px;
+  opacity: 1;
+  // transition: opacity $animation-default-easing $animation-standard-duration, flex-basis $animation-default-easing $animation-standard-duration, width $animation-default-easing $animation-standard-duration, margin-right $animation-default-easing $animation-standard-duration;
+  @include transition-properties((opacity flex-basis width margin-right), $animation-default-easing, $animation-standard-duration)
 
-  &__panels {
-    flex: 1 0 auto;
-    display: flex;
-    flex-direction: column;
+  &--minimise {
+    margin-right: 0;
+    width: 0;
+    flex-basis: 0;
+    opacity: 0;
   }
 }

@@ -53,6 +53,14 @@ $transition-presets: (
   }
 }
 
+@mixin transition-properties($properties, $easing, $duration) {
+  $transitions: ();
+  @each $value in $properties {
+    $transitions: append($transitions, $value $easing $duration, comma);
+  }
+  transition: $transitions;
+}
+
 @mixin transition($transition-name, $duration) {
   $transition: map-get($transition-presets, $transition-name);
 
