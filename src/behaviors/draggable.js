@@ -29,13 +29,15 @@ function moveDistance(start, draggableData) {
   return Math.sqrt((draggableData.x - start.x) ** 2, (draggableData.y - start.y) ** 2);
 }
 
-function* uid() {
+function* uidGenerator() {
   let i = 1;
   for (;;) {
     yield i;
     i += 1;
   }
 }
+
+const key = uidGenerator();
 
 export default function draggable(WrappedComponent) {
   class Draggable extends Component {
@@ -45,6 +47,7 @@ export default function draggable(WrappedComponent) {
 
       this.state = {
         preview: null,
+        key: key.next().value,
       };
     }
 
@@ -137,8 +140,8 @@ export default function draggable(WrappedComponent) {
             transitionLeaveTimeout={styles.animation.duration.fast}
           >
             { !this.isActive() &&
-              <div ref={(node) => { this.node = node; }} key={uid()}>
-                <WrappedComponent {...this.props}/>
+              <div ref={(node) => { this.node = node; }} key={this.state.key}>
+                <WrappedComponent {...this.props} />
               </div>
             }
           </CSSTransitionGroup>
