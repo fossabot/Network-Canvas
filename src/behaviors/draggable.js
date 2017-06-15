@@ -8,6 +8,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import { filter } from 'lodash';
 import DraggablePreview from '../utils/DraggablePreview';
 import { actionCreators as draggableActions } from '../ducks/modules/draggable';
+import { actionCreators as droppableActions } from '../ducks/modules/droppable';
 import styles from '../ui/styles';
 
 function getCoords(event) {
@@ -71,6 +72,9 @@ export default function draggable(WrappedComponent) {
         }
         return;
       }
+
+      const hits = this.getHits(getCoords(event, draggableData));
+      this.props.updateActiveZones(hits.map((hit) => hit.name));
 
       this.updateDrag(event, draggableData);
     }
@@ -171,6 +175,7 @@ export default function draggable(WrappedComponent) {
     return {
       dragStart: bindActionCreators(draggableActions.dragStart, dispatch),
       dragStop: bindActionCreators(draggableActions.dragStop, dispatch),
+      updateActiveZones: bindActionCreators(droppableActions.updateActiveZones, dispatch),
     };
   }
 
