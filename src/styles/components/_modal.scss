@@ -1,4 +1,6 @@
-.modal {
+$component-name: modal;
+
+.#{$component-name} {
   position: absolute;
   z-index: 2000;
   top: 0;
@@ -8,12 +10,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparentize(palette('background'), 0.1);
+  background-color: transparentize(palette('background'), .1);
 
   &__window {
     width: 750px;
     background: palette('light-background');
-    box-shadow: 0 0 4px 0 transparentize(palette('dark-background'), 0.25);
+    box-shadow: 0 0 4px 0 transparentize(palette('dark-background'), .25);
     position: relative;
   }
 
@@ -52,10 +54,40 @@
     right: 35px;
     top: 35px;
     color: palette('text');
-    cusor: pointer;
+    cursor: pointer;
 
     &:focus {
       outline: none;
+    }
+  }
+
+  &--transition {
+    @include group-transition(fade, $animation-standard-duration);
+
+    @include group-transition-enter {
+      .#{$component-name}__window {
+        transform: translate(0, -100vh);
+      }
+
+      &-active {
+        .#{$component-name}__window {
+          transition: transform $animation-default-easing $animation-fast-duration;
+          transform: translate(0, 0);
+        }
+      }
+    }
+
+    @include group-transition-leave {
+      .#{$component-name}__window {
+        transform: translate(0, 0);
+      }
+
+      &-active {
+        .#{$component-name}__window {
+          transition: transform $animation-default-easing $animation-fast-duration;
+          transform: translate(0, -100vh);
+        }
+      }
     }
   }
 }

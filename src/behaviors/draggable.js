@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
@@ -7,6 +8,7 @@ import { CSSTransitionGroup } from 'react-transition-group';
 import { filter } from 'lodash';
 import DraggablePreview from '../utils/DraggablePreview';
 import { actionCreators as draggableActions } from '../ducks/modules/draggable';
+import { actionCreators as droppableActions } from '../ducks/modules/droppable';
 import styles from '../ui/styles';
 
 function getCoords(event) {
@@ -28,13 +30,15 @@ function moveDistance(start, draggableData) {
   return Math.sqrt((draggableData.x - start.x) ** 2, (draggableData.y - start.y) ** 2);
 }
 
-function* uid() {
+function* uidGenerator() {
   let i = 1;
   for (;;) {
     yield i;
     i += 1;
   }
 }
+
+const key = uidGenerator();
 
 export default function draggable(WrappedComponent) {
   class Draggable extends Component {
@@ -44,6 +48,7 @@ export default function draggable(WrappedComponent) {
 
       this.state = {
         preview: null,
+        key: key.next().value,
       };
     }
 
@@ -67,6 +72,9 @@ export default function draggable(WrappedComponent) {
         }
         return;
       }
+
+      const hits = this.getHits(getCoords(event, draggableData));
+      this.props.updateActiveZones(hits.map((hit) => hit.name));
 
       this.updateDrag(event, draggableData);
     }
@@ -129,14 +137,14 @@ export default function draggable(WrappedComponent) {
       return (
         <DraggableCore onStart={this.onStart} onStop={this.onStop} onDrag={this.onDrag}>
           <CSSTransitionGroup
-            transitionName="draggable"
+            transitionName="draggable--transition"
             transitionAppear
-            transitionAppearTimeout={styles.animation.duration.fast * 2}
+            transitionAppearTimeout={styles.animation.duration.fast}
             transitionEnterTimeout={styles.animation.duration.fast}
             transitionLeaveTimeout={styles.animation.duration.fast}
           >
             { !this.isActive() &&
-              <div ref={(node) => { this.node = node; }} key={uid()}>
+              <div ref={(node) => { this.node = node; }} key={this.state.key}>
                 <WrappedComponent {...this.props} />
               </div>
             }
@@ -167,6 +175,7 @@ export default function draggable(WrappedComponent) {
     return {
       dragStart: bindActionCreators(draggableActions.dragStart, dispatch),
       dragStop: bindActionCreators(draggableActions.dragStop, dispatch),
+      updateActiveZones: bindActionCreators(droppableActions.updateActiveZones, dispatch),
     };
   }
 
