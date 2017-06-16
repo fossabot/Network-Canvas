@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Node } from '../Elements';
+import { Node } from 'network-canvas-ui';
 import { scrollable, droppable, draggable, selectable } from '../../behaviors';
 
 const EnhancedNode = draggable(selectable(Node));
@@ -12,7 +12,7 @@ const NodeList = (props) => {
   const {
     network,
     label,
-    isActive,
+    selected,
     handleSelectNode,
     handleDropNode,
     draggableType,
@@ -25,7 +25,7 @@ const NodeList = (props) => {
           <EnhancedNode
             key={node.uid}
             label={label(node)}
-            isActive={isActive(node)}
+            selected={selected(node)}
             onSelected={() => handleSelectNode(node)}
             onDropped={hits => handleDropNode(hits, node)}
             draggableType={draggableType}
@@ -42,13 +42,13 @@ NodeList.propTypes = {
   handleSelectNode: PropTypes.func,
   handleDropNode: PropTypes.func,
   label: PropTypes.func,
-  isActive: PropTypes.func,
+  selected: PropTypes.func,
   draggableType: PropTypes.string,
 };
 
 NodeList.defaultProps = {
   label: () => (''),
-  isActive: () => false,
+  selected: () => false,
   handleSelectNode: () => {},
   handleDropNode: () => {},
   draggableType: '',

@@ -45,7 +45,7 @@ class NodeProvider extends Component {
     } = this.props;
 
     const label = node => `${node.nickname}`;
-    const isActive = node => isMatch(node, this.props.activePromptAttributes);
+    const selected = node => isMatch(node, this.props.activePromptAttributes);
 
     switch (interaction) {
       case 'selectable':
@@ -56,7 +56,7 @@ class NodeProvider extends Component {
             draggableType="EXISTING_NODE"
             handleDropNode={this.handleDropNode}
             handleSelectNode={this.handleSelectNode}
-            isActive={isActive}
+            selected={selected}
           />
         );
       default:
