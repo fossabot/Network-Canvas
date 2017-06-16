@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -10,10 +8,10 @@ import classNames from 'classnames';
 const Node = (props) => {
   const {
     label,
-    isActive,
+    selected,
   } = props;
 
-  const classes = classNames('node', { 'node--is-active': isActive });
+  const classes = classNames('node', { 'node--selected': selected });
 
   return (
     <div className={classes}>
@@ -33,18 +31,19 @@ const Node = (props) => {
         />
         <circle vectorEffect="non-scaling-stroke" cx="0" cy="0" r="1" className="node__node-trim" />
       </svg>
+      <div className="node__label">{label}</div>
     </div>
   );
 };
 
 Node.propTypes = {
   label: PropTypes.string,
-  isActive: PropTypes.bool,
+  selected: PropTypes.bool,
 };
 
 Node.defaultProps = {
   label: 'Node',
-  isActive: false,
+  selected: false,
 };
 
 export default Node;

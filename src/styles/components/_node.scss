@@ -26,40 +26,22 @@
     transition: stroke $animation-default-easing $animation-fast-duration;
   }
 
-  &--is-active {
+  &__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    font-size: 1.5em;
+  }
+
+  &--selected {
     .node__node-trim {
       stroke: palette('selected');
     }
   }
-
-  // &::before {
-  //   content: '';
-  //   position: absolute;
-  //   z-index: 2;
-  //   top: 0;
-  //   left: 0;
-  //   border-radius: 100%;
-  //   width: 100%;
-  //   height: 100%;
-  //   box-sizing: border-box;
-  //   background-color: transparent;
-  //   border: 3px solid transparentize(palette('selected'), 1);
-  //   transition: border-color $animation-default-easing $animation-fast-duration;
-  // }
-  //
-  // &__label {
-  //   position: absolute;
-  //   z-index: 2;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   flex-wrap: nowrap;
-  //   font-size: 1.5em;
-  // }
-  //
-
 }
