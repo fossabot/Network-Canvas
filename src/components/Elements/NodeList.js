@@ -21,9 +21,9 @@ const NodeList = (props) => {
   return (
     <div className="node-list">
       {
-        network.nodes.map((node, index) => (
+        network.nodes.map(node => (
           <EnhancedNode
-            key={index}
+            key={node.uid}
             label={label(node)}
             isActive={isActive(node)}
             onSelected={() => handleSelectNode(node)}
