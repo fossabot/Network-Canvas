@@ -1,4 +1,19 @@
 module.exports = {
+  sections: [
+    {
+      name: 'Introduction',
+      content: 'docs/introduction.md'
+    },
+    {
+      name: 'Network Canvas Components',
+      components: 'src/components/**/[A-Z]*.js'
+    },
+    {
+      name: 'UI Components',
+      content: 'docs/ui.md',
+      components: 'node_modules/network-canvas-ui/src/components/**/*.{js}'
+    }
+  ],
   webpackConfig: {
     module: {
       loaders: [
@@ -35,6 +50,7 @@ module.exports = {
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
+          // include: [/node_modules\/network-canvas-ui/],
           loader: 'babel-loader'
         },
         // Other loaders that are needed for your components
