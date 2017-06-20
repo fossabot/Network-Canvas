@@ -11,7 +11,8 @@ module.exports = {
     {
       name: 'UI Components',
       content: 'docs/ui.md',
-      components: 'node_modules/network-canvas-ui/src/components/**/*.{js}'
+      components: './network-canvas-ui/src/components/**/[A-Z]*.js', // works
+      // components: './node_modules/network-canvas-ui/src/components/**/[A-Z]*.js' // doesn't work
     }
   ],
   webpackConfig: {
