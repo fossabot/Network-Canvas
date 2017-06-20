@@ -49,10 +49,10 @@ module.exports = {
         },
         // Babel loader, will use your project’s .babelrc
         {
-          test: /\.jsx?$/,
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          // include: [/node_modules\/network-canvas-ui/],
-          loader: 'babel-loader'
+          include: (/src|node_modules\/network-canvas-ui/),
+          loader: 'babel',
         },
         // Other loaders that are needed for your components
         {
