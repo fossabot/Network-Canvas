@@ -1,16 +1,17 @@
+/* eslint-disable */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import NetworkService from '../utils/NetworkService';
 
 /**
   * Homepage screen
   * @param props {object} - children
   */
-const HomePage = (props) => {
-  const {
-    participant,
-  } = props;
+const HomePage = ({ participant }) => {
+  const networkService = new NetworkService();
 
   return (
     <div className="container">

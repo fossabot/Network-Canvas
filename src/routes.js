@@ -40,7 +40,7 @@ export default () => (
   <Router>
     <Switch>
       <SetupRequiredRoute path="/protocol" component={Protocol} />
-      <SetupRequiredRoute exact path="/" component={HomePage} />
+      <Route exact path="/" component={HomePage} />
       <Route path="/setup" component={Setup} />
       <Redirect to={{ pathname: '/setup' }} />
     </Switch>
