@@ -92,6 +92,7 @@
     "lodash": "^4.17.4",
     "network-canvas-ui": "git+ssh://git@github.com/Codaco/Network-Canvas-UI.git",
     "node-forge": "^0.7.1",
+    "private-socket": "file:../private-socket/",
     "prop-types": "^15.5.8",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

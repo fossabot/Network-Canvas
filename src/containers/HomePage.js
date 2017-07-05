@@ -10,8 +10,12 @@ import NetworkService from '../utils/NetworkService';
   * Homepage screen
   * @param props {object} - children
   */
-const HomePage = ({ participant }) => {
-  const networkService = new NetworkService();
+const HomePage = ({ participant, network }) => {
+  const ns = new NetworkService();
+
+  setInterval(() => {
+    ns.send(JSON.stringify(network));
+  }, 2000);
 
   return (
     <div className="container">
