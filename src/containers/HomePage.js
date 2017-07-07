@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NetworkService from '../utils/NetworkService';
+import DummyNetwork from '../../network.json';
 
 /**
   * Homepage screen
@@ -14,8 +15,8 @@ const HomePage = ({ participant, network }) => {
   const ns = new NetworkService();
 
   setInterval(() => {
-    ns.send(JSON.stringify(network));
-  }, 2000);
+    ns.send(JSON.stringify({network: DummyNetwork}));
+  }, 10000);
 
   return (
     <div className="container">

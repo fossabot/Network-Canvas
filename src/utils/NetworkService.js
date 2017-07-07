@@ -10,6 +10,7 @@ export default class NetworkService {
   }
 
   send(data) {
+    console.log('sending', data);
     this.privateSocket.send(data);
   }
 }
