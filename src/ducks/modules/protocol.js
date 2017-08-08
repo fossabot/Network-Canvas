@@ -1,6 +1,8 @@
+/* eslint-disable max-len */
+
 import { combineEpics } from 'redux-observable';
 import { Observable } from 'rxjs';
-import axios from 'axios';
+import getProtocol from '../../utils/getProtocol';
 import runProtocol from '../../utils/runProtocol';
 
 const LOAD_PROTOCOL = 'LOAD_PROTOCOL';
@@ -54,18 +56,13 @@ function loadProtocolFailed(error) {
   };
 }
 
-const protocolRequest = url => axios({
-  url,
-  contentType: 'application/javascript',
-});
-
 const loadProtocolEpic = action$ =>
-  action$.ofType(LOAD_PROTOCOL)
-    .switchMap(action =>
+  action$.ofType(LOAD_PROTOCOL)                                     // Filter for load protocol action
+    .switchMap(action =>                                            // Favour subsequent load actions over earlier ones
       Observable
-        .fromPromise(protocolRequest(action.path))
-        .map(response => setProtocol(runProtocol(response.data)))
-        .catch(error => Observable.of(loadProtocolFailed(error))),
+        .fromPromise(getProtocol(action.path))                      // Get protocol
+        .map(response => setProtocol(runProtocol(response.data)))   // Parse and save
+        .catch(error => Observable.of(loadProtocolFailed(error))),  //  ...or throw an error
     );
 
 const actionCreators = {
