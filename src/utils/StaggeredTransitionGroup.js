@@ -125,22 +125,6 @@ class StaggeredTransitionGroup extends Component {
   }
 }
 
-<<<<<<< HEAD
-StaggeredTransitionGroup.propTypes = Object.assign(
-  {},
-  CSSTransitionGroup.propTypes,
-  {
-    children: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node,
-    ]).isRequired,
-    delay: PropTypes.number,
-    start: PropTypes.number,
-    className: PropTypes.string,
-    component: PropTypes.any,
-  },
-);
-=======
 StaggeredTransitionGroup.propTypes = {
   ...CSSTransitionGroup.propTypes,
   children: PropTypes.oneOfType([
@@ -152,7 +136,6 @@ StaggeredTransitionGroup.propTypes = {
   className: PropTypes.string,
   component: PropTypes.any,
 };
->>>>>>> Updating demo protocol fields, adding colors for toggle groups, props for transition group.
 
 StaggeredTransitionGroup.defaultProps = {
   delay: 100,
