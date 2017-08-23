@@ -23,16 +23,6 @@ const fields = [
       maxLength: 8,
     },
   },
-  {
-    label: 'Age',
-    name: 'age',
-    type: 'Numeric',
-    validation: {
-      required: true,
-      minValue: 0,
-      maxValue: 200,
-    },
-  },
 ];
 
 export default {
