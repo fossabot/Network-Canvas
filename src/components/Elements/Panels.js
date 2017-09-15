@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { CSSTransitionGroup } from 'react-transition-group';
-import { animation } from 'network-canvas-ui';
+import { TransitionGroup } from 'react-transition-group';
 
 /**
   * Renders a pane container.
@@ -13,15 +12,12 @@ const Panels = ({ children, minimise }) => {
     { 'panels--minimise': minimise },
   );
   return (
-    <CSSTransitionGroup
+    <TransitionGroup
       component="div"
       className={panelsClasses}
-      transitionName="panel--transition"
-      transitionEnterTimeout={animation.duration.standard}
-      transitionLeaveTimeout={animation.duration.standard}
     >
       { children }
-    </CSSTransitionGroup>
+    </TransitionGroup>
   );
 };
 

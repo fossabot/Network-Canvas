@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
-import { animation } from 'network-canvas-ui';
 import PropTypes from 'prop-types';
 import modal from '../../behaviours/modal';
 
@@ -41,11 +39,7 @@ class Modal extends Component {
     } = this.props;
 
     return (
-      <CSSTransitionGroup
-        transitionName="modal--transition"
-        transitionEnterTimeout={animation.duration.standard}
-        transitionLeaveTimeout={animation.duration.standard}
-      >
+      <div>
         { show &&
           <div key="modal" className="modal" onClick={() => { this.close(); }}>
             <div className="modal__window" onClick={e => e.stopPropagation()}>
@@ -63,7 +57,7 @@ class Modal extends Component {
             </div>
           </div>
         }
-      </CSSTransitionGroup>
+      </div>
     );
   }
 }

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { CSSTransitionGroup } from 'react-transition-group';
+import { TransitionGroup } from 'react-transition-group';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { flow, map, differenceBy, sortBy } from 'lodash';
@@ -88,7 +88,7 @@ class StaggeredTransitionGroup extends Component {
   }
 
   render() {
-    const { transitionName, className, component } = this.props;
+    const { className } = this.props;
 
     const sortByNew = children => sortBy(
       children,
@@ -110,24 +110,18 @@ class StaggeredTransitionGroup extends Component {
     ])(React.Children.toArray(this.props.children));
 
     return (
-      <CSSTransitionGroup
+      <div
         className={className}
-        transitionName={transitionName}
-        transitionAppear
-        transitionAppearTimeout={this.totalTime()}
-        transitionEnterTimeout={this.totalTime()}
-        transitionLeave={false}
-        component={component}
       >
         {children}
-      </CSSTransitionGroup>
+      </div>
     );
   }
 }
 
 StaggeredTransitionGroup.propTypes = Object.assign(
   {},
-  CSSTransitionGroup.propTypes,
+  TransitionGroup.propTypes,
   {
     children: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.node),
