@@ -126,7 +126,7 @@ $component-name: dialog;
       }
     }
 
-    @include group-transition-leave {
+    @include group-transition-exit {
       .#{$component-name}__window {
         transform: translate(0, 0);
       }

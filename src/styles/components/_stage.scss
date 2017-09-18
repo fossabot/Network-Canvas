@@ -9,6 +9,7 @@
   height: 100vh;
   overflow: hidden;
   background-color: palette('background');
+  transition: opacity 500ms ease-in;
 
   &__interface {
     flex: 1 auto;
@@ -39,15 +40,48 @@
     }
   }
 
-  &--transition {
-    @include group-transition-with-delay(fade, $animation-slow-duration, $animation-slow-duration)
-
-    @include group-transition-leave {
-      .node-list,
-      .panels {
-        opacity: 0;
-        transition: unset !important;
-      }
+  &-enter {
+  opacity: 0.01;
+    &-enter-active {
+      opacity: 1;
+      transition: opacity 500ms ease-in;
     }
   }
+
+  &-exit {
+    opacity: 1;
+  }
+
+  &-exit.fade-exit-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
+  }
+  //
+  // @include group-transition-with-delay(fade, $animation-slow-duration, $animation-slow-duration)
+  //
+  // @include group-transition-exit {
+  //   .node-list,
+  //   .panels {
+  //     opacity: 0;
+  //     transition: unset !important;
+  //   }
+  // }
+}
+
+.stage-enter {
+  opacity: 0.01;
+}
+
+.stage-enter.stage-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.stage-exit {
+  opacity: 1;
+}
+
+.stage-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
 }
