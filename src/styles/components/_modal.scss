@@ -61,6 +61,23 @@ $component-name: modal;
     }
   }
 
+  &-enter {
+    opacity: 0.01;
+    &-active {
+      opacity: 1;
+      transition: opacity 500ms ease-in;
+    }
+  }
+
+  &-exit {
+    opacity: 1;
+
+    &-active {
+      opacity: 0.01;
+      transition: opacity 300ms ease-in;
+    }
+  }
+
   &--transition {
     @include group-transition(fade, $animation-standard-duration);
 
