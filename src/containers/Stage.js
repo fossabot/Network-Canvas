@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Transition } from 'react-transition-group';
+import CSSTransition from 'react-transition-group/CSSTransition';
+// import { animation } from 'network-canvas-ui';
 import loadInterface from '../utils/loadInterface';
 import { actionCreators as stageActions } from '../ducks/modules/stage';
 import { stage } from '../selectors/session';
@@ -12,11 +13,6 @@ import { stage } from '../selectors/session';
   * @extends Component
   */
 class Stage extends Component {
-
-  constructor() {
-    super();
-    this.state = { on: true };
-  }
   // change the stage to the next
   onClickNext = () => {
     this.props.next();
@@ -31,34 +27,13 @@ class Stage extends Component {
     const { activeStageConfig } = this.props;
     const CurrentInterface = loadInterface(activeStageConfig.type);
 
-    const duration = 300;
-
-    const defaultStyle = {
-      transition: `opacity ${duration}ms ease-in-out`,
-      opacity: 0,
-    };
-
-    const transitionStyles = {
-      entering: { opacity: 1 },
-      entered: { opacity: 1 },
-    };
-
-    const Fade = ({ in: inProp, children }) => (
-      <Transition in={inProp} timeout={duration} appear>
-        {children}
-      </Transition>
-    );
-
     return (
-      <Fade in={this.state.on}>
-        <div
-          className="stage"
-          key={activeStageConfig.id}
-          style={{
-            ...defaultStyle,
-            ...transitionStyles[this.state],
-          }}
-        >
+      <CSSTransition
+        classNames="stage--transition"
+        timeout={500}
+        appear
+      >
+        <div className="stage" key={activeStageConfig.id}>
           <div className="stage__control">
             <button
               className="stage__control-button stage__control-button--back"
@@ -81,7 +56,7 @@ class Stage extends Component {
             </button>
           </div>
         </div>
-      </Fade>
+      </CSSTransition>
     );
   }
 }
