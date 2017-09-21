@@ -18,9 +18,11 @@ function Modal(props) {
 
   return (
     <CSSTransition
-      className="modal"
+      classNames="modal--transition"
       timeout={animation.duration.standard}
       in={show}
+      mountOnEnter
+      unmountOnExit
     >
       <div key="modal" className="modal" onClick={() => close()}>
         <div className="modal__window" onClick={e => e.stopPropagation()}>
