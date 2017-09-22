@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { filter } from 'lodash';
+import { throttle, filter, isMatch } from 'lodash';
 import DraggablePreview from '../utils/DraggablePreview';
 import { actionCreators as draggableActions } from '../ducks/modules/draggable';
 import { actionCreators as droppableActions } from '../ducks/modules/droppable';
+
+const maxReportingPerSecond = 16;
 
 function isTouch(event) {
   if (typeof TouchEvent !== 'undefined' && event instanceof TouchEvent) {
@@ -71,24 +73,38 @@ export default function draggable(WrappedComponent) {
 
       this.state = initalState;
       this.preview = null;
+      this.componentHandlers = throttle(
+        this.componentHandlers,
+        1000 / maxReportingPerSecond,
+      );
     }
 
     componentDidMount() {
+      if (!this.props.canDrag) { return; }
       this.el = findDOMNode(this.node);
-      this.el.addEventListener('touchstart', this.handleMoveStart);
+      this.el.addEventListener('touchstart', this.handleMoveStart, { passive: true });
       this.el.addEventListener('touchmove', this.handleMove);
-      this.el.addEventListener('touchend', this.handleMoveEnd);
-      this.el.addEventListener('mousedown', this.handleMoveStart);
+      this.el.addEventListener('touchend', this.handleMoveEnd, { passive: true });
+      this.el.addEventListener('mousedown', this.handleMoveStart, { passive: true });
+    }
+
+    shouldComponentUpdate(newProps, newState) {
+      const propsChanged = !isMatch(this.props, newProps);
+      const dragStateChanged = newState.dragStart !== this.state.dragStart;
+      return dragStateChanged || propsChanged;
     }
 
     componentWillUnmount() {
       this.cleanupPreview();
-      this.el.removeEventListener('touchstart', this.handleMoveStart);
-      this.el.removeEventListener('touchmove', this.handleMove);
-      this.el.removeEventListener('touchend', this.handleMoveEnd);
-      this.el.removeEventListener('mousedown', this.handleMoveStart);
       window.removeEventListener('mousemove', this.handleMove);
       window.removeEventListener('mouseup', this.handleMoveEnd);
+      this.componentHandlers.cancel();
+      if (this.el) {
+        this.el.removeEventListener('touchstart', this.handleMoveStart);
+        this.el.removeEventListener('touchmove', this.handleMove);
+        this.el.removeEventListener('touchend', this.handleMoveEnd);
+        this.el.removeEventListener('mousedown', this.handleMoveStart);
+      }
     }
 
     determineHits = ({ x, y }) =>
@@ -98,8 +114,9 @@ export default function draggable(WrappedComponent) {
       });
 
     trackMouse = () => {
+      if (!this.props.canDrag) { return; }
       window.addEventListener('mousemove', this.handleMove);
-      window.addEventListener('mouseup', this.handleMoveEnd);
+      window.addEventListener('mouseup', this.handleMoveEnd, { passive: true });
     }
 
     removeMouseTracking = () => {
@@ -255,7 +272,7 @@ export default function draggable(WrappedComponent) {
     onDropped: PropTypes.func,
     onMove: PropTypes.func,
     updateActiveZones: PropTypes.func.isRequired,
-    // canDrag: PropTypes.bool,
+    canDrag: PropTypes.bool,
   };
 
   Draggable.defaultProps = {

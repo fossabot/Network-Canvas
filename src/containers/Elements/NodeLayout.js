@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators, compose } from 'redux';
@@ -9,7 +7,7 @@ import { createSelector } from 'reselect';
 import { Node } from 'network-canvas-ui';
 import { draggable, withBounds, selectable } from '../../behaviours';
 import { DropZone } from '../../components/Elements';
-import { networkNodesOfStageType } from '../../selectors/interface';
+import { makeNetworkNodesOfStageType } from '../../selectors/interface';
 import { actionCreators as networkActions } from '../../ducks/modules/network';
 
 const label = node => node.nickname;
@@ -18,10 +16,14 @@ const draggableType = 'POSITIONED_NODE';
 
 const propLayout = (_, props) => props.prompt.sociogram.layout;
 
-const getPlacedNodes = createSelector(
-  [networkNodesOfStageType, propLayout],
-  (nodes, layout) => filter(nodes, node => has(node, layout)),
-);
+const makeGetPlacedNodes = () => {
+  const networkNodesOfStageType = makeNetworkNodesOfStageType();
+
+  return createSelector(
+    [networkNodesOfStageType, propLayout],
+    (nodes, layout) => filter(nodes, node => has(node, layout)),
+  );
+};
 
 const EnhancedNode = draggable(selectable(Node));
 
@@ -94,7 +96,7 @@ export class NodeLayout extends Component {
 
   isSelected(node) {
     const { select } = this.props;
-    if (!select) { return null; }
+    if (!canSelect(select)) { return null; }
     switch (select.action) {
       case 'EDGE':
         return (node.id === this.state.connectFrom);
@@ -170,16 +172,20 @@ NodeLayout.defaultProps = {
   position: false,
 };
 
-function mapStateToProps(state, props) {
-  const sociogram = props.prompt.sociogram;
+function makeMapStateToProps() {
+  const getPlacedNodes = makeGetPlacedNodes();
 
-  return {
-    nodes: getPlacedNodes(state, props),
-    layout: sociogram.layout,
-    edge: sociogram.edge,
-    select: sociogram.select,
-    position: sociogram.position,
-    attributes: sociogram.nodeAttributes,
+  return function mapStateToProps(state, props) {
+    const sociogram = props.prompt.sociogram;
+
+    return {
+      nodes: getPlacedNodes(state, props),
+      layout: sociogram.layout,
+      edge: sociogram.edge,
+      select: sociogram.select,
+      position: sociogram.position,
+      attributes: sociogram.nodeAttributes,
+    };
   };
 }
 
@@ -192,6 +198,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(makeMapStateToProps, mapDispatchToProps),
   withBounds,
 )(NodeLayout);
