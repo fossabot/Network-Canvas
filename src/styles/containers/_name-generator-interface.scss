@@ -50,6 +50,7 @@
 
   &__add-person {
     @include svg-button('../images/add-a-person.svg');
+    filter: drop-shadow(0 4px 0 transparentize(palette('dark-background'), .25));
     position: absolute;
     bottom: 35px;
     right: 35px;

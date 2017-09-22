@@ -10,13 +10,15 @@ $component-name: modal;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparentize(palette('modal-overlay'), .05);
+  background-color: transparentize(palette('modal-overlay'), .35);
+  backdrop-filter: blur(15px); // Safari only, for now. Gives nice background blur effect.
 
   &__window {
     width: 750px;
     background: palette('modal-main-panel');
-    box-shadow: 0 0 4px 0 transparentize(palette('dark-background'), .25);
+    filter: drop-shadow(0 4px 0 transparentize(palette('dark-background'), .25));
     position: relative;
+
   }
 
   &__layout {
@@ -28,7 +30,7 @@ $component-name: modal;
     &-content {
       flex: 1 auto;
       overflow-x: hidden;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
 
     &-title {
