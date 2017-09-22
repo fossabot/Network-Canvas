@@ -64,11 +64,11 @@ $component-name: modal;
   }
 
   &--transition {
-    @include group-transition(fade, $animation-standard-duration);
+    @include group-transition(fade, $animation-fast-duration);
 
     @include group-transition-enter {
       .#{$component-name}__window {
-        transform: translate(0, -100vh);
+        transform: translate(0, 10vh);
       }
 
       &-active {

@@ -44,8 +44,9 @@
     input {
       border-radius: .5rem;
       outline: none;
-      padding: .3rem;
+      padding: 1rem;
       width: 100%;
+      border: 1px solid color('platinum--dark');
 
       &:focus {
         border-width: 3px;
