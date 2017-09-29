@@ -9,7 +9,6 @@
   height: 100vh;
   overflow: hidden;
   background-color: palette('background');
-  transition: opacity 500ms ease-in;
 
   &__interface {
     flex: 1 auto;
@@ -40,48 +39,23 @@
     }
   }
 
-  &-enter {
-  opacity: 0.01;
-    &-enter-active {
+  &--transition {
+
+    &-enter {
+      opacity: 0;
+      &-active {
+        opacity: 1;
+        transition: opacity 100ms ease-in;
+      }
+    }
+
+    &-exit {
       opacity: 1;
-      transition: opacity 500ms ease-in;
+        &-active {
+        opacity: 0;
+        transition: opacity 300ms ease-in;
+        transition-delay: 2s;
+      }
     }
   }
-
-  &-exit {
-    opacity: 1;
-  }
-
-  &-exit.fade-exit-active {
-    opacity: 0.01;
-    transition: opacity 300ms ease-in;
-  }
-  //
-  // @include group-transition-with-delay(fade, $animation-slow-duration, $animation-slow-duration)
-  //
-  // @include group-transition-exit {
-  //   .node-list,
-  //   .panels {
-  //     opacity: 0;
-  //     transition: unset !important;
-  //   }
-  // }
-}
-
-.stage-enter {
-  opacity: 0.01;
-}
-
-.stage-enter.stage-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-.stage-exit {
-  opacity: 1;
-}
-
-.stage-exit.fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
 }

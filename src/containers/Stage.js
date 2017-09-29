@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CSSTransition from 'react-transition-group/CSSTransition';
-// import { animation } from 'network-canvas-ui';
+import { animation } from 'network-canvas-ui';
 import loadInterface from '../utils/loadInterface';
 import { actionCreators as stageActions } from '../ducks/modules/stage';
 import { stage } from '../selectors/session';
@@ -30,7 +30,7 @@ class Stage extends Component {
     return (
       <CSSTransition
         classNames="stage--transition"
-        timeout={500}
+        timeout={animation.duration.slow}
         appear
       >
         <div className="stage" key={activeStageConfig.id}>
