@@ -7,7 +7,7 @@
       "person": {
         "label": "Person",
         "color": "coral",
-        "displayVariable": "nickname", 
+        "displayVariable": "nickname",
         "variables": {
           "name": {
             "label": "Name",
@@ -201,7 +201,7 @@
         {
           "variable": "timeCreated",
           "component": "hidden",
-          "value": "return Date.now().toString();" 
+          "value": "return Date.now().toString();"
         }
       ]
     }
@@ -238,7 +238,7 @@
           "additionalAttributes": {
             "advice_friend": true
           }
-        } 
+        }
       ]
     },
     {
