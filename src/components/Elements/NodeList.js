@@ -1,6 +1,10 @@
+/* eslint-disable */
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { uniqueId } from 'lodash';
+import { mapProps } from 'recompose';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Node, animation } from 'network-canvas-ui';
@@ -106,7 +110,7 @@ function mapStateToProps(state, ownProps) {
 
 export default compose(
   scrollable,
-  DropTarget,
   MonitorDropTarget(['isOver']),
+  DropTarget,
   connect(mapStateToProps),
 )(NodeList);

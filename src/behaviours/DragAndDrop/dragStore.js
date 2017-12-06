@@ -1,4 +1,4 @@
-import { filter, omit } from 'lodash';
+import { filter, omit, uniqBy } from 'lodash';
 import { compose } from 'redux';
 
 const UPDATE_TARGET = Symbol('DRAG_AND_DROP/UPDATE_TARGET');
@@ -51,7 +51,7 @@ const reducer = (state = initialState, { type, ...action }) => {
     case UPDATE_TARGET:
       return markHits({
         ...state,
-        targets: [...state.targets, action],
+        targets: uniqBy([action, ...state.targets], 'id'),
       });
     case DRAG_START:
       return markHits({
@@ -85,6 +85,7 @@ const reducer = (state = initialState, { type, ...action }) => {
 };
 
 function updateTarget(data) {
+  console.log('update target', data);
   return {
     type: UPDATE_TARGET,
     ...data,

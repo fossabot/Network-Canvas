@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
+import { compose } from 'redux';
+import { mapProps } from 'recompose';
 import { debounce, isMatch, uniqueId } from 'lodash';
 import getAbsoluteBoundingRect from '../../utils/getAbsoluteBoundingRect';
 import { getDragContext } from './DragContext';
@@ -10,7 +12,13 @@ import { actionCreators as dragActions } from './dragStore';
 const maxFramesPerSecond = 10;
 
 const dropTarget = WrappedComponent =>
-  getDragContext()(
+  compose(
+    mapProps(props => ({
+      id: uniqueId(),
+      ...props,
+    })),
+    getDragContext(),
+  )(
     class DropTarget extends Component {
       static defaultProps = {
         meta: () => ({}),
@@ -47,6 +55,7 @@ const dropTarget = WrappedComponent =>
 
         this.props.DragContext.dispatch(
           dragActions.updateTarget({
+            id: this.props.id,
             onDrop: this.props.onDrop,
             accepts: this.props.accepts,
             meta: this.props.meta(),
