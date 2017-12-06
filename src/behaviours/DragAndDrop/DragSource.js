@@ -7,87 +7,108 @@ import { findDOMNode } from 'react-dom'; // eslint-disable-line camelcase
 import { getDragContext } from './DragContext';
 import DragPreview from './DragPreview';
 import dragManager from './dragManager';
+import { actionCreators as dragActions } from './dragStore';
 
 const dragSource = WrappedComponent =>
-  class DragSource extends PureComponent {
-    static propTypes = {
-    };
+  getDragContext()(
+    class DragSource extends PureComponent {
+      static propTypes = {
+      };
 
-    static defaultProps = {
-      canDrag: true,
-    };
+      static defaultProps = {
+        canDrag: true,
+      };
 
-    constructor(props) {
-      super(props);
+      constructor(props) {
+        super(props);
 
-      this.dragManager = null;
-      this.preview = null;
-    }
+        this.state = {};
 
-    componentDidMount() {
-      if (!this.props.canDrag) { return; }
-      // findDOMNode(this.node);
-      this.dragManager = new dragManager({
-        el: this.node,
-        onDragStart: this.onDragStart,
-        onDragMove: this.onDragMove,
-        onDragEnd: this.onDragEnd,
-      });
-    }
-
-    componentWillUnmount() {
-      this.cleanupPreview();
-      this.dragManager.unmount();
-    }
-
-    cleanupPreview = () => {
-      if (this.preview) {
-        this.preview.cleanup();
+        this.dragManager = null;
         this.preview = null;
       }
-    }
 
-    createPreview = () => {
-      const draggablePreview = new DragPreview(this.node);
+      componentDidMount() {
+        if (!this.props.canDrag) { return; }
 
-      this.preview = draggablePreview;
-    }
+        this.dragManager = new dragManager({
+          el: this.node,
+          onDragStart: this.onDragStart,
+          onDragMove: this.onDragMove,
+          onDragEnd: this.onDragEnd,
+        });
+      }
 
-    updatePreview = ({ x, y }) => {
-      this.preview.position({ x, y });
-    }
+      componentWillUnmount() {
+        this.cleanupPreview();
+        this.cleanupDragManager();
+      }
 
-    onDragStart = (...args) => {
-      this.createPreview();
-    }
+      cleanupDragManager = () => {
+        this.dragManager.unmount();
+        this.dragManager = null;
+      };
 
-    onDragMove = ({ x,  y, ...rest }) => {
-      this.updatePreview({ x,  y });
-    }
+      cleanupPreview = () => {
+        if (this.preview) {
+          this.preview.cleanup();
+          this.preview = null;
+        }
+      }
 
-    onDragEnd = (...args) => {
-      this.cleanupPreview();
-    }
+      createPreview = () => {
+        const draggablePreview = new DragPreview(this.node);
 
-    styles() {
-      if (!this.dragManager) { return { visibility: 'initial' }; }
-      return this.dragManager.isDragging() ? { visibility: 'hidden' } : { visibility: 'initial' };
-    }
+        this.preview = draggablePreview;
+      }
 
-    render() {
-      const {
-        canDrag,
-        ...rest
-      } = this.props;
+      updatePreview = ({ x, y }) => {
+        this.preview.position({ x, y });
+      }
 
-      return (
-        <div style={this.styles()}>
-          <div ref={(node) => { this.node = node; }}>
-            <WrappedComponent {...rest} ref={(component) => { this.component = component; }} />
+      onDragStart = (movement) => {
+        this.createPreview();
+        this.props.DragContext.dispatch(
+          dragActions.dragStart(movement)
+        );
+        this.setState({ isDragging: true }); // TODO: Should this be handled in a manager?
+      }
+
+      onDragMove = ({ x,  y, ...rest }) => {
+        this.updatePreview({ x,  y });
+        this.props.DragContext.dispatch(
+          dragActions.dragMove({
+            x, y, ...rest,
+          })
+        );
+      }
+
+      onDragEnd = (movement) => {
+        this.cleanupPreview();
+        this.setState({ isDragging: false });
+        this.props.DragContext.dispatch(
+          dragActions.dragEnd(movement)
+        );
+      }
+
+      styles = () =>  (this.state.isDragging ? { visibility: 'hidden' } : {});
+
+      render() {
+        const {
+          canDrag,
+          DragContext,
+          ...rest
+        } = this.props;
+
+        return (
+          <div style={this.styles()}>
+            <div ref={(node) => { this.node = node; }}>
+              <WrappedComponent {...rest} ref={(component) => { this.component = component; }} />
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     }
-  };
+  );
 
 export default dragSource;

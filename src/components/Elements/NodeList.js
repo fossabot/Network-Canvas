@@ -6,7 +6,7 @@ import cx from 'classnames';
 import { Node, animation } from 'network-canvas-ui';
 import StaggeredTransitionGroup from '../../utils/StaggeredTransitionGroup';
 import { scrollable, selectable } from '../../behaviours';
-import { DropTarget, DragSource } from '../../behaviours/DragAndDrop';
+import { DropTarget, DragSource, MonitorDropTarget } from '../../behaviours/DragAndDrop';
 
 const EnhancedNode = DragSource(selectable(Node));
 
@@ -87,6 +87,7 @@ NodeList.defaultProps = {
   onSelectNode: () => {},
   onDropNode: () => {},
   onDragNode: () => {},
+  onDrop: () => { alert('foo'); },
   draggableType: null,
   isHovered: false,
   isDragging: false,
@@ -106,5 +107,6 @@ function mapStateToProps(state, ownProps) {
 export default compose(
   scrollable,
   DropTarget,
+  MonitorDropTarget(['isOver']),
   connect(mapStateToProps),
 )(NodeList);

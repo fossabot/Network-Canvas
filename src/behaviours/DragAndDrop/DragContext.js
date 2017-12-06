@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
+import { createStore } from 'redux';
 import { withContext, getContext } from 'recompose';
-import createDragStore from './createDragStore';
+import { reducer as dragReducer } from './dragStore';
 
-const dragStore = createDragStore();
+const dragStore = createStore(dragReducer);
+dragStore.subscribe(() => {
+  console.log(dragStore.getState());
+});
 
 const provideDragContext = () => withContext(
   { DragContext: PropTypes.object },
